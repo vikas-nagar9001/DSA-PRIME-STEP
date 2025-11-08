@@ -1,31 +1,19 @@
 package Normal;
-// now hum multiple list bana sakte hain
-
-// constructor ka use karenge 
-// and class k andr hi head ko define karenge
-// taki har list or object ka apna head ho 
-
-//and kisi bhi method me head pass or return ki jarurat nahi padegi
-// hum direct class k head ko use kar lenge
-
-class Node {
-
-    int data;
-    Node next;
-
-    // ab hum object banate time data pass kar sakte hain
-    // aur next ko null kar denge
-    Node(int data) {
-        this.data = data;
-        this.next = null;
-    }
-
-    // Node newNode = new Node();
-    // newNode.data = data;
-    // newNode.next = null; ------> Node newNode = new Node(data);
-}
 
 class LinkedList {
+
+    class Node {
+
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+
+    }
+
     Node head;
 
     void printList() {
@@ -162,32 +150,107 @@ class LinkedList {
 
 }
 
-public class D5_LinkedList {
+class OuterLinkedList {
+
+    class Node {
+
+        LinkedList list;
+        Node next;
+
+        Node(LinkedList list) {
+            this.list = list;
+            this.next = null;
+        }
+
+    }
+
+    Node head;
+
+    void printLists() {
+        Node currentList = head;
+
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        while (currentList != null) {
+
+            // yha par humne linked list wali class me jo node class h usme current list ka head rkh diya 
+            LinkedList.Node currentNode = currentList.list.head;
+            while (currentNode != null) {
+                System.out.print(currentNode.data + "->");
+                currentNode = currentNode.next;
+            }
+            System.out.println("null");
+
+
+
+            currentList=currentList.next;
+        }
+
+    }
+
+    void addList(LinkedList list) {
+        Node newList = new Node(list);
+
+        if (head == null) {
+            head = newList;
+
+        } else {
+
+            Node currentList = head;
+
+            while (currentList.next != null) {
+                currentList = currentList.next;
+            }
+
+            currentList.next = newList;
+        }
+    }
+
+    void removeList() {
+        if (head == null) {
+            System.out.println("Head is null");
+        } else {
+
+            Node currentList = head;
+            Node nextNode = head.next;
+
+            while (nextNode.next != null) {
+
+                currentList = currentList.next;
+                nextNode = nextNode.next;
+            }
+
+            currentList.next = null;
+        }
+    }
+
+}
+
+public class D12_Nested_LinkedList {
+
     public static void main(String[] args) {
 
         LinkedList list = new LinkedList();
-
-        // now hume head pass karne ki jarurat nahi hai
 
         list.addAtLast(10);
         list.addAtLast(20);
         list.insertAtFirst(5);
 
-        list.printList();
-        list.deleteLast();
-        list.printList();
-
         LinkedList list2 = new LinkedList();
-
-        // now we can create multiple lists
 
         list2.addAtLast(30);
         list2.addAtLast(40);
         list2.insertAtFirst(25);
 
-        list2.printList();
-        list2.deleteLast();
-        list2.printList();
+        OuterLinkedList ol = new OuterLinkedList();
 
+        ol.addList(list);
+        ol.addList(list2);
+        ol.printLists();
+
+        
     }
 }

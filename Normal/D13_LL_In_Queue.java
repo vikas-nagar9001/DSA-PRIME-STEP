@@ -1,31 +1,19 @@
 package Normal;
-// now hum multiple list bana sakte hain
-
-// constructor ka use karenge 
-// and class k andr hi head ko define karenge
-// taki har list or object ka apna head ho 
-
-//and kisi bhi method me head pass or return ki jarurat nahi padegi
-// hum direct class k head ko use kar lenge
-
-class Node {
-
-    int data;
-    Node next;
-
-    // ab hum object banate time data pass kar sakte hain
-    // aur next ko null kar denge
-    Node(int data) {
-        this.data = data;
-        this.next = null;
-    }
-
-    // Node newNode = new Node();
-    // newNode.data = data;
-    // newNode.next = null; ------> Node newNode = new Node(data);
-}
 
 class LinkedList {
+
+    class Node {
+
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+
+    }
+
     Node head;
 
     void printList() {
@@ -162,32 +150,99 @@ class LinkedList {
 
 }
 
-public class D5_LinkedList {
+class Queue {
+    class Node {
+        LinkedList list;
+        Node next;
+
+        Node(LinkedList list) {
+            this.list = list;
+            this.next = null;
+        }
+    }
+
+    Node front;
+    Node rear;
+
+    Queue() {
+        front = rear = null;
+    }
+
+    void enqueue(LinkedList list) {
+
+        Node newNode = new Node(list);
+
+        if (front == null) {
+            front = newNode;
+            rear = newNode;
+            return;
+        }
+
+        rear.next = newNode;
+        rear = newNode;
+
+    }
+
+    void dequeue() {
+
+        if (front == null || rear == null) {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        front = front.next;
+
+        if (front == null) {
+            rear = null;
+        }
+
+    }
+
+    void print() {
+        if (front == null || rear == null) {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        Node currentNode = front;
+        while (currentNode != null) {
+
+            // yha par humne linked list wali class me jo node class h usme current list ka
+            // head rkh diya
+            LinkedList.Node currentList = currentNode.list.head;
+            while (currentList != null) {
+                System.out.print(currentList.data + "->");
+                currentList = currentList.next;
+            }
+            System.out.println("null");
+
+            currentNode = currentNode.next;
+        }
+
+        System.out.println();
+    }
+}
+
+public class D13_LL_In_Queue {
     public static void main(String[] args) {
-
         LinkedList list = new LinkedList();
-
-        // now hume head pass karne ki jarurat nahi hai
 
         list.addAtLast(10);
         list.addAtLast(20);
         list.insertAtFirst(5);
 
-        list.printList();
-        list.deleteLast();
-        list.printList();
-
         LinkedList list2 = new LinkedList();
-
-        // now we can create multiple lists
 
         list2.addAtLast(30);
         list2.addAtLast(40);
         list2.insertAtFirst(25);
+        Queue q = new Queue();
 
-        list2.printList();
-        list2.deleteLast();
-        list2.printList();
+        q.enqueue(list);
+        q.enqueue(list2);
 
+        q.print();
+        q.dequeue();
+        q.print();
     }
 }

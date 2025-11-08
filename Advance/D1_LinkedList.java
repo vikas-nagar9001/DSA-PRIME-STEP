@@ -382,7 +382,7 @@ public class D1_LinkedList {
             int input = sc.nextInt();
 
             switch (input) {
-                case 1 -> handler.handleAddAtLast();
+                case 1 ->  handler.handleAddAtLast();
                 case 2 -> handler.handleAddAtFirst();
                 case 3 -> list.printList();
                 case 4 -> list.reverseList();

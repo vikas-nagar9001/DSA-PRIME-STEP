@@ -1,9 +1,9 @@
-// now create extra methods to enhance the d10_Stack functionality
+// now create extra methods to enhance the d11_Queue functionality
 package Normal;
 
 import java.util.Scanner;
 
-class Stack {
+class Queue {
 
     class Node {
 
@@ -17,14 +17,15 @@ class Stack {
 
     }
 
-    Node top;
+    Node front;
+    Node rear;
     int length;
 
-    void printStack() {
-        Node currentNode = top;
+    void printQueue() {
+        Node currentNode = front;
 
-        if (top == null) {
-            System.out.println("Stack is empty");
+        if (front == null) {
+            System.out.println("Queue is empty");
             return;
         }
         int length = getLength();
@@ -53,48 +54,45 @@ class Stack {
         return length;
     }
 
-    void push(int data) {
+    void enqueue(int data) {
 
         Node newNode = new Node(data);
 
-        if (top == null) {
-            top = newNode;
-        } else {
-            newNode.next = top;
-
-            top = newNode;
-        }
-        System.out.println("Data Pushed");
-        length++;
-    }
-
-    void pushAtBottom(int data) {
-
-        Node newNode = new Node(data);
-
-        if (top == null) {
-            top = newNode;
+        if (front == null) {
+            front = newNode;
+            rear = newNode;
 
         } else {
 
-            Node currentNode = top;
-
-            while (currentNode.next != null) {
-                currentNode = currentNode.next;
-            }
-
-            currentNode.next = newNode;
+            rear.next = newNode;
+            rear = newNode;
         }
 
-        System.out.println("Data Pushed at bottom");
+        System.out.println("Data Enqueued");
         length++;
 
     }
 
-    void pushAtPosition(int data, int pos) {
+    void enqueueAtFront(int data) {
+
         Node newNode = new Node(data);
 
-        Node currentNode = top;
+        if (front == null) {
+            front = newNode;
+            rear = newNode;
+        } else {
+            newNode.next = front;
+
+            front = newNode;
+        }
+        System.out.println("Data Enqueued at front");
+        length++;
+    }
+
+    void enqueueAtPosition(int data, int pos) {
+        Node newNode = new Node(data);
+
+        Node currentNode = front;
 
         if (pos <= getLength()) {
 
@@ -105,7 +103,7 @@ class Stack {
 
             newNode.next = currentNode.next;
             currentNode.next = newNode;
-            System.out.println("Data pushed at postion : " + pos);
+            System.out.println("Data enqueued at postion : " + pos);
             length++;
 
         } else {
@@ -116,7 +114,7 @@ class Stack {
 
     void updateDataByPos(int data, int pos) {
 
-        Node currentNode = top;
+        Node currentNode = front;
 
         if (pos <= getLength()) {
 
@@ -135,25 +133,25 @@ class Stack {
 
     }
 
-    void pop() {
-        if (top == null) {
-            System.out.println("Top is null");
+    void dequeue() {
+        if (front == null) {
+            System.out.println("Front is null");
         } else {
 
-            top = top.next;
-            System.out.println("Top element popped");
+            front = front.next;
+            System.out.println("First element dequeued");
             length--;
         }
 
     }
 
-    void popBottom() {
-        if (top == null) {
-            System.out.println("Top is null");
+    void dequeueRear() {
+        if (front == null) {
+            System.out.println("Front is null");
         } else {
 
-            Node currentNode = top;
-            Node nextNode = top.next;
+            Node currentNode = front;
+            Node nextNode = front.next;
 
             while (nextNode.next != null) {
 
@@ -163,20 +161,20 @@ class Stack {
 
             currentNode.next = null;
 
-            System.out.println("Bottom node popped");
+            System.out.println("Rear node dequeued");
             length--;
         }
     }
 
-    void popByPosition(int pos) {
-        if (top == null) {
-            System.out.println("Top is null");
+    void dequeueByPosition(int pos) {
+        if (front == null) {
+            System.out.println("Front is null");
         } else {
 
             boolean isFound = false;
             int count = 1, data = 0;
 
-            Node currentNode = top;
+            Node currentNode = front;
 
             for (int i = 1; i < pos; i++) {
 
@@ -199,34 +197,34 @@ class Stack {
                 count++;
             }
 
-            System.out.println(isFound == true ? "data popped : " + data : "positon not exits");
+            System.out.println(isFound == true ? "data dequeued : " + data : "positon not exits");
 
         }
     }
 
-    void reverseStack() {
-        Node currentNode = top;
+    void reverseQueue() {
+        Node currentNode = front;
 
-        if (top == null) {
-            System.out.println("Top is null");
+        if (front == null) {
+            System.out.println("Front is null");
         } else {
 
-            Stack revStack = new Stack();
+            Queue revQueue = new Queue();
 
             while (currentNode != null) {
-                revStack.push(currentNode.data);
+                revQueue.enqueueAtFront(currentNode.data);
 
                 currentNode = currentNode.next;
             }
-            top = revStack.top;
+            front = revQueue.front;
 
-            System.out.println("Stack Reversed");
+            System.out.println("Queue Reversed");
 
         }
     }
 
-    void encodeStack(int key) {
-        Node currentNode = top;
+    void encodeQueue(int key) {
+        Node currentNode = front;
         while (currentNode != null) {
             while (currentNode != null) {
                 currentNode.data = (currentNode.data ^ key);
@@ -234,11 +232,11 @@ class Stack {
             }
         }
 
-        System.out.println("Stack data encoded");
+        System.out.println("Queue data encoded");
     }
 
-    void decodeStack(int key) {
-        Node currentNode = top;
+    void decodeQueue(int key) {
+        Node currentNode = front;
         while (currentNode != null) {
             while (currentNode != null) {
                 currentNode.data = (currentNode.data ^ key);
@@ -246,7 +244,7 @@ class Stack {
             }
         }
 
-        System.out.println("Stack decoded print to see original stack");
+        System.out.println("Queue decoded print to see original queue");
     }
 
 }
@@ -254,25 +252,25 @@ class Stack {
 class Handlers {
 
     Scanner sc;
-    Stack stack;
+    Queue queue;
 
-    Handlers(Scanner sc, Stack stack) {
+    Handlers(Scanner sc, Queue queue) {
         this.sc = sc;
-        this.stack = stack;
+        this.queue = queue;
     }
 
     // --- Menu Printing ---
     void printMenu() {
         clearTerminal();
-        stack.printStack();
-        System.out.println("\n========= Stack Operations ===========");
+        queue.printQueue();
+        System.out.println("\n========= Queue Operations ===========");
         System.out.println("""
-                1. Push                        7. Pop
-                2. Push At Bottom              8. Pop By Position
-                3. Print Stack                 9. Push At Position
-                4. Reverse Stack               10. Encode Stack
-                5. Print Length                11. Decode Stack
-                6. Pop Bottom                  12. Update Data
+                1. Enqueue                     7. Dequeue
+                2. Enqueue At Front            8. Dequeue By Position
+                3. Print Queue                 9. Enqueue At Position
+                4. Reverse Queue               10. Encode Queue
+                5. Print Length                11. Decode Queue
+                6. Dequeue Rear                12. Update Data
                                                13. Exit
                               ------------------
                               | Made by @vikas |
@@ -282,33 +280,33 @@ class Handlers {
     }
 
     // --- Handlers for Input ---
-    void handlePush() {
+    void handleEnqueue() {
         System.out.print("Enter Data: ");
         int data = sc.nextInt();
-        stack.push(data);
+        queue.enqueue(data);
 
     }
 
-    void handlePushAtBottom() {
+    void handleEnqueueAtFront() {
         System.out.print("Enter Data: ");
         int data = sc.nextInt();
-        stack.pushAtBottom(data);
+        queue.enqueueAtFront(data);
 
     }
 
-    void handlePopByPosition() {
+    void handleDequeueByPosition() {
         System.out.print("Enter Position: ");
         int pos = sc.nextInt();
-        stack.popByPosition(pos);
+        queue.dequeueByPosition(pos);
 
     }
 
-    void handlePushAtPosition() {
+    void handleEnqueueAtPosition() {
         System.out.print("Enter Data: ");
         int data = sc.nextInt();
         System.out.print("Enter Position: ");
         int pos = sc.nextInt();
-        stack.pushAtPosition(data, pos);
+        queue.enqueueAtPosition(data, pos);
 
     }
 
@@ -316,14 +314,14 @@ class Handlers {
         System.out.println("Enter Integer Secret Key: ");
         int key = sc.nextInt();
 
-        stack.encodeStack(key);
+        queue.encodeQueue(key);
     }
 
     void handleDecode() {
         System.out.println("Enter Your Key: ");
         int key = sc.nextInt();
 
-        stack.decodeStack(key);
+        queue.decodeQueue(key);
     }
 
     void handleUpdate() {
@@ -332,7 +330,7 @@ class Handlers {
         System.out.print("Enter Updated Data: ");
         int data = sc.nextInt();
 
-        stack.updateDataByPos(data, pos);
+        queue.updateDataByPos(data, pos);
     }
 
     void clearTerminal() {
@@ -365,15 +363,15 @@ class Handlers {
 
 }
 
-public class D10A_Stack_LinkedList {
+public class D11A_Queue_LinkedList {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        Stack stack = new Stack();
+        Queue queue = new Queue();
 
-        Handlers handler = new Handlers(sc, stack);
+        Handlers handler = new Handlers(sc, queue);
         boolean run = true;
 
         while (run) {
@@ -382,15 +380,15 @@ public class D10A_Stack_LinkedList {
             int input = sc.nextInt();
 
             switch (input) {
-                case 1 -> handler.handlePush();
-                case 2 -> handler.handlePushAtBottom();
-                case 3 -> stack.printStack();
-                case 4 -> stack.reverseStack();
-                case 5 -> System.out.println("Length: " + stack.getLength());
-                case 6 -> stack.popBottom();
-                case 7 -> stack.pop();
-                case 8 -> handler.handlePopByPosition();
-                case 9 -> handler.handlePushAtPosition();
+                case 1 -> handler.handleEnqueue();
+                case 2 -> handler.handleEnqueueAtFront();
+                case 3 -> queue.printQueue();
+                case 4 -> queue.reverseQueue();
+                case 5 -> System.out.println("Length: " + queue.getLength());
+                case 6 -> queue.dequeueRear();
+                case 7 -> queue.dequeue();
+                case 8 -> handler.handleDequeueByPosition();
+                case 9 -> handler.handleEnqueueAtPosition();
                 case 10 -> handler.handleEncode();
                 case 11 -> handler.handleDecode();
                 case 12 -> handler.handleUpdate();

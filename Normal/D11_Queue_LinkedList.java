@@ -1,5 +1,6 @@
 package Normal;
-class Node{
+
+class Node {
     int data;
     Node next;
 
@@ -41,7 +42,7 @@ class Queue {
 
         front = front.next;
 
-        if(front==null){
+        if (front == null) {
             rear = null;
         }
 
@@ -65,26 +66,22 @@ class Queue {
     }
 }
 
-
-
-
 public class D11_Queue_LinkedList {
     public static void main(String[] args) {
         Queue q = new Queue();
 
         q.enqueue(10);
-         q.enqueue(20);
-        
-          q.enqueue(30);
-q.print();
-          q.dequeue();
-          q.print();
-        //   q.dequeue();
-        //      q.print();
+        q.enqueue(20);
 
-        //        q.dequeue();
-        //            q.print();
-               
-          
+        q.enqueue(30);
+        q.print();
+        q.dequeue();
+        q.print();
+        // q.dequeue();
+        // q.print();
+
+        // q.dequeue();
+        // q.print();
+
     }
 }

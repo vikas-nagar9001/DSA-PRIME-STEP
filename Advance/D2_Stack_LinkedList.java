@@ -1,5 +1,5 @@
 // now create extra methods to enhance the d10_Stack functionality
-package Normal;
+package Advance;
 
 import java.util.Scanner;
 
@@ -68,73 +68,6 @@ class Stack {
         length++;
     }
 
-    void pushAtBottom(int data) {
-
-        Node newNode = new Node(data);
-
-        if (top == null) {
-            top = newNode;
-
-        } else {
-
-            Node currentNode = top;
-
-            while (currentNode.next != null) {
-                currentNode = currentNode.next;
-            }
-
-            currentNode.next = newNode;
-        }
-
-        System.out.println("Data Pushed at bottom");
-        length++;
-
-    }
-
-    void pushAtPosition(int data, int pos) {
-        Node newNode = new Node(data);
-
-        Node currentNode = top;
-
-        if (pos <= getLength()) {
-
-            for (int i = 1; i <= pos - 2; i++) {
-                currentNode = currentNode.next;
-
-            }
-
-            newNode.next = currentNode.next;
-            currentNode.next = newNode;
-            System.out.println("Data pushed at postion : " + pos);
-            length++;
-
-        } else {
-            System.out.println("Position not exists");
-        }
-
-    }
-
-    void updateDataByPos(int data, int pos) {
-
-        Node currentNode = top;
-
-        if (pos <= getLength()) {
-
-            for (int i = 1; i <= pos - 2; i++) {
-                currentNode = currentNode.next;
-
-            }
-
-            int temp = currentNode.data;
-            currentNode.data = data;
-            System.out.println("Data updated " + temp + " to " + data);
-
-        } else {
-            System.out.println("Position not exists");
-        }
-
-    }
-
     void pop() {
         if (top == null) {
             System.out.println("Top is null");
@@ -145,63 +78,6 @@ class Stack {
             length--;
         }
 
-    }
-
-    void popBottom() {
-        if (top == null) {
-            System.out.println("Top is null");
-        } else {
-
-            Node currentNode = top;
-            Node nextNode = top.next;
-
-            while (nextNode.next != null) {
-
-                currentNode = currentNode.next;
-                nextNode = nextNode.next;
-            }
-
-            currentNode.next = null;
-
-            System.out.println("Bottom node popped");
-            length--;
-        }
-    }
-
-    void popByPosition(int pos) {
-        if (top == null) {
-            System.out.println("Top is null");
-        } else {
-
-            boolean isFound = false;
-            int count = 1, data = 0;
-
-            Node currentNode = top;
-
-            for (int i = 1; i < pos; i++) {
-
-                if (currentNode.next == null) {
-                    break;
-                }
-
-                if (count == pos - 1) {
-
-                    data = currentNode.next.data;
-
-                    currentNode.next = currentNode.next.next;
-
-                    isFound = true;
-                    length--;
-
-                    break;
-                }
-                currentNode = currentNode.next;
-                count++;
-            }
-
-            System.out.println(isFound == true ? "data popped : " + data : "positon not exits");
-
-        }
     }
 
     void reverseStack() {
@@ -267,13 +143,11 @@ class Handlers {
         stack.printStack();
         System.out.println("\n========= Stack Operations ===========");
         System.out.println("""
-                1. Push                        7. Pop
-                2. Push At Bottom              8. Pop By Position
-                3. Print Stack                 9. Push At Position
-                4. Reverse Stack               10. Encode Stack
-                5. Print Length                11. Decode Stack
-                6. Pop Bottom                  12. Update Data
-                                               13. Exit
+                1. Push                        4. Reverse Stack
+                2. Print Stack                 5. Encode Stack
+                3. Pop                         6. Decode Stack
+                                               7. Print Length
+                                               8. Exit
                               ------------------
                               | Made by @vikas |
                               ------------------
@@ -289,29 +163,6 @@ class Handlers {
 
     }
 
-    void handlePushAtBottom() {
-        System.out.print("Enter Data: ");
-        int data = sc.nextInt();
-        stack.pushAtBottom(data);
-
-    }
-
-    void handlePopByPosition() {
-        System.out.print("Enter Position: ");
-        int pos = sc.nextInt();
-        stack.popByPosition(pos);
-
-    }
-
-    void handlePushAtPosition() {
-        System.out.print("Enter Data: ");
-        int data = sc.nextInt();
-        System.out.print("Enter Position: ");
-        int pos = sc.nextInt();
-        stack.pushAtPosition(data, pos);
-
-    }
-
     void handleEncode() {
         System.out.println("Enter Integer Secret Key: ");
         int key = sc.nextInt();
@@ -324,15 +175,6 @@ class Handlers {
         int key = sc.nextInt();
 
         stack.decodeStack(key);
-    }
-
-    void handleUpdate() {
-        System.out.print("Enter Position: ");
-        int pos = sc.nextInt();
-        System.out.print("Enter Updated Data: ");
-        int data = sc.nextInt();
-
-        stack.updateDataByPos(data, pos);
     }
 
     void clearTerminal() {
@@ -365,7 +207,7 @@ class Handlers {
 
 }
 
-public class D10A_Stack_LinkedList {
+public class D2_Stack_LinkedList {
 
     public static void main(String[] args) {
 
@@ -383,18 +225,13 @@ public class D10A_Stack_LinkedList {
 
             switch (input) {
                 case 1 -> handler.handlePush();
-                case 2 -> handler.handlePushAtBottom();
-                case 3 -> stack.printStack();
+                case 2 -> stack.printStack();
+                case 3 -> stack.pop();
                 case 4 -> stack.reverseStack();
-                case 5 -> System.out.println("Length: " + stack.getLength());
-                case 6 -> stack.popBottom();
-                case 7 -> stack.pop();
-                case 8 -> handler.handlePopByPosition();
-                case 9 -> handler.handlePushAtPosition();
-                case 10 -> handler.handleEncode();
-                case 11 -> handler.handleDecode();
-                case 12 -> handler.handleUpdate();
-                case 13 -> {
+                case 5 -> handler.handleEncode();
+                case 6 -> handler.handleDecode();
+                case 7 -> System.out.println("Length: " + stack.getLength());
+                case 8 -> {
                     System.out.println("Exiting...");
                     run = false;
                 }
