@@ -281,6 +281,42 @@ class Handlers {
 
     }
 
+    
+    LinkedList<?> getLinkedList() {
+        System.out.println("======= Linked List Type =======");
+        System.out.println("""
+                1. Integer                 4. Character
+                2. String                  5. Boolean
+                3. Null                    6. Exit
+                """);
+
+        System.out.print("Enter : ");
+        int input = sc.nextInt();
+        listType=input;
+        switch (input) {
+            case 1 -> {
+                return new LinkedList<Integer>();
+            }
+            case 2 -> {
+                return new LinkedList<String>();
+            }
+            case 4 -> {
+                return new LinkedList<Character>();
+            }
+            case 5 -> {
+                return new LinkedList<Boolean>();
+            }
+            case 6 -> {
+                System.out.println("Exiting...");
+                return null;
+            }
+            default -> {
+                System.out.println("Invalid input!");
+                return null;
+            }
+        }
+    }
+
     // --- Handlers for Input ---
     void handleAddAtLast() {
         System.out.print("Enter Data: ");

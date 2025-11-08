@@ -362,7 +362,7 @@ class Handlers {
 
 }
 
-public class D5A_LinkedList {
+public class D6A_LinkedList {
 
     public static void main(String[] args) {
 
