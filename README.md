@@ -1,2 +1,5 @@
-## Run in VS Code
-[Open in VS Code](vscode://vscode.git/clone?url=https://github.com/vikas-nagar9001/DSA-PRIME-STEP)
+## Open This Repository in VS Code
+
+| Environment | Link |
+|--------------|------|
+| 🌐 VS Code Web | [![Open in VSCode.dev](https://img.shields.io/badge/Open%20in-VSCode.dev-blue?logo=visualstudiocode)](https://vscode.dev/github/vikas-nagar9001/DSA-PRIME-STEP) 
